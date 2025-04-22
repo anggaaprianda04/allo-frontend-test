@@ -1,0 +1,14 @@
+.card-rocket {
+    margin-bottom: 30px;
+
+    .text-desc {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-decoration: none;
+    }
+}
+
+.card-rocket a {
+    text-decoration: none;
+}

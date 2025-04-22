@@ -7,7 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    CardEmpty: typeof import('./src/components/CardEmpty/CardEmpty.vue')['default']
+    CardRocket: typeof import('./src/components/CardRocket/CardRocket.vue')['default']
+    CardRocketSkeleton: typeof import('./src/components/CardRocketSkeleton/CardRocketSkeleton.vue')['default']
+    HelloWorld: typeof import('./src/components/HelloWorld/HelloWorld.vue')['default']
+    InputSearch: typeof import('./src/components/InputSearch/InputSearch.vue')['default']
+    Layout: typeof import('./src/components/Layout/Layout.vue')['default']
+    Navbar: typeof import('./src/components/Navbar/Navbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

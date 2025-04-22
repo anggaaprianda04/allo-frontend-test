@@ -5,8 +5,15 @@
  */
 
 // Composables
+import Home from '@/pages/Home/Home.vue';
+import Detail from '@/pages/Detail/Detail.vue';
 import { createRouter, createWebHistory } from 'vue-router/auto'
-import { routes } from 'vue-router/auto-routes'
+
+
+const routes = [
+  { path: "/", component: Home },
+  { path: "/detail/:id", component: Detail }
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

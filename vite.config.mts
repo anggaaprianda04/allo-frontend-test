@@ -7,7 +7,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 
 // Utilities
 import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
+import path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,7 +26,7 @@ export default defineConfig({
     Components(),
     ViteFonts({
       google: {
-        families: [ {
+        families: [{
           name: 'Roboto',
           styles: 'wght@100;300;400;500;700;900',
         }],
@@ -35,9 +35,11 @@ export default defineConfig({
   ],
   define: { 'process.env': {} },
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    alias: [
+      {
+        find: '@', replacement: path.resolve(__dirname, 'src')
+      }
+    ],
     extensions: [
       '.js',
       '.json',
