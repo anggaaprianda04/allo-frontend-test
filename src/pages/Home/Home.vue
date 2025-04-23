@@ -2,14 +2,15 @@
   <Layout>
     <v-container>
       <InputSearch @update:keyword="searchKeyword = $event" />
-      <div v-if="filteredRocket.length > 0">
-        <v-row v-if="!rocketStore.isLoading">
+      <div>
+        <v-row v-if="filteredRocket.length">
           <v-col
             v-for="(rocket, index) in filteredRocket"
             :key="index"
             cols="12"
             sm="6"
             md="4"
+            lg="3"
           >
             <RouterLink :key="rocket.id" :to="`/detail/${rocket.id}`">
               <CardRocket
@@ -21,24 +22,32 @@
             </RouterLink>
           </v-col>
         </v-row>
-        <v-row v-else>
+
+        <v-row v-if="rocketStore.isLoading && !filteredRocket.length">
           <v-col
             v-for="(rocket, index) in 4"
             :key="index"
             cols="12"
             sm="6"
             md="4"
+            lg="3"
           >
             <CardRocketSkeleton :key="index" />
           </v-col>
         </v-row>
-      </div>
-      <div class="error-card" v-else-if="rocketStore.error">
-        <p class="text-h6 mt-2">{{ rocketStore.error }}</p>
-        <v-btn color="red" class="mt-3" @click="getRocket">Retry</v-btn>
-      </div>
-      <div v-else class="empty-card">
-        <CardEmpty />
+        <div
+          class="error-card"
+          v-else-if="rocketStore.error && !rocketStore.isLoading"
+        >
+          <p class="text-h6 mt-2">{{ rocketStore.error }}</p>
+          <v-btn color="red" class="mt-3" @click="getRocket">Retry</v-btn>
+        </div>
+        <div
+          v-else-if="!rocketStore.isLoading && !filteredRocket.length"
+          class="empty-card"
+        >
+          <CardEmpty />
+        </div>
       </div>
     </v-container>
   </Layout>
