@@ -35,13 +35,11 @@
             <CardRocketSkeleton :key="index" />
           </v-col>
         </v-row>
-        <div
-          class="error-card"
+        <ButtonRefreshCard
           v-else-if="rocketStore.error && !rocketStore.isLoading"
-        >
-          <p class="text-h6 mt-2">{{ rocketStore.error }}</p>
-          <v-btn color="red" class="mt-3" @click="getRocket">Retry</v-btn>
-        </div>
+          title="Failed get list rocket, please try again"
+          @retryClick="getRocket"
+        />
         <div
           v-else-if="!rocketStore.isLoading && !filteredRocket.length"
           class="empty-card"
@@ -61,12 +59,13 @@ import { RouterLink } from "vue-router";
 import CardRocketSkeleton from "../../components/CardRocketSkeleton/CardRocketSkeleton.vue";
 import CardEmpty from "../../components/CardEmpty/CardEmpty.vue";
 import { useRocketStore } from "../../stores/rocketStore";
+import ButtonRefreshCard from "@/components/ButtonRefreshCard/ButtonRefreshCard.vue";
 
 const searchKeyword = ref("");
 
 const rocketStore = useRocketStore();
 rocketStore.fetchRocketList();
-console.log(rocketStore.rockets);
+
 const filteredRocket = computed(() =>
   rocketStore.rockets.filter((rocket) => {
     const keyword = searchKeyword.value.toLowerCase();
@@ -78,17 +77,7 @@ const filteredRocket = computed(() =>
 );
 
 const getRocket = async () => {
-  rocketStore.isLoading = true;
-  rocketStore.error = null;
-  try {
-    const response = await spaceXService.getAllRocket();
-    rocketStore.rockets = response.data;
-  } catch (err) {
-    rocketStore.error = "Failed get list rocket, please try again";
-    console.log(err);
-  } finally {
-    rocketStore.isLoading = false;
-  }
+  await rocketStore.fetchRocketList();
 };
 
 onMounted(() => {

@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ButtonRefreshCard: typeof import('./src/components/ButtonRefreshCard/ButtonRefreshCard.vue')['default']
     CardEmpty: typeof import('./src/components/CardEmpty/CardEmpty.vue')['default']
     CardRocket: typeof import('./src/components/CardRocket/CardRocket.vue')['default']
     CardRocketSkeleton: typeof import('./src/components/CardRocketSkeleton/CardRocketSkeleton.vue')['default']
